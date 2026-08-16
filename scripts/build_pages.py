@@ -336,9 +336,9 @@ page(
 <section class="photo-hero">
   <img class="bg" src="/assets/img/photo-boardwalk.jpg" alt="">
   <div class="veil"></div>
-  <div class="inner" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;min-height:62vh">
+  <div class="inner hero-split">
     <h1>consultation</h1>
-    <div style="display:grid;gap:16px;justify-items:start">
+    <div class="pill-stack">
       <a class="pill" href="https://calendly.com/cascadedoulanl/30min" target="_blank" rel="noopener">book now // Santa Cruz</a>
       <a class="pill" href="https://calendly.com/cascadedoulanl/60-minute-consultation-clone" target="_blank" rel="noopener">book now // los gatos</a>
     </div>
@@ -362,7 +362,7 @@ page(
   </div>
 </section>
 <section class="band bg-sage" style="min-height:280px">
-  <div class="wrap" style="display:grid;gap:16px;max-width:360px">
+  <div class="wrap pill-stack">
     <a class="pill" href="https://calendly.com/cascadedoulanl/30min" target="_blank" rel="noopener">SANTA CRUZ CONSULTATION</a>
     <a class="pill" href="https://calendly.com/cascadedoulanl/60-minute-consultation-clone" target="_blank" rel="noopener">LOS GATOS CONSULTATION</a>
   </div>
@@ -384,7 +384,7 @@ page(
 <section class="photo-hero">
   <img class="bg" src="/assets/img/photo-couple.jpg" alt="">
   <div class="veil"></div>
-  <div class="inner" style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:end;min-height:46vh">
+  <div class="inner hero-split">
     <h1>EVERY FAMILY<br>DESERVES A DOULA</h1>
     <p class="quote">I believe every family deserves the support of a doula, and want to make that as accessible as possible.</p>
   </div>

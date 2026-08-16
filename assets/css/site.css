@@ -18,6 +18,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+html, body { overflow-x: hidden; }
 body {
   margin: 0;
   color: var(--ink);
@@ -226,6 +227,14 @@ body.hero-page .site-head {
 .photo-hero .veil { position: absolute; inset: 0; background: rgba(40,30,28,.28); }
 .photo-hero .inner { position: relative; z-index: 2; padding: 120px 28px 80px; max-width: 1280px; margin: 0 auto; }
 .photo-hero h1 { font-size: clamp(56px, 8vw, 92px); font-weight: 500; }
+.hero-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: center;
+  min-height: 62vh;
+}
+.pill-stack { display: grid; gap: 16px; justify-items: start; }
 
 .pill {
   display: inline-block;
@@ -298,14 +307,80 @@ body.hero-page .site-head {
 .hours mark { background: transparent; color: inherit; font-style: italic; text-decoration: underline; text-underline-offset: 4px; }
 
 @media (max-width: 860px) {
-  .brand { font-size: 22px; }
-  .grid-2, .grid-3, .about-grid, .form-card .row, .foot-in, .photos-4 {
+  body { font-size: 16px; }
+  .site-head { padding: 16px 18px 8px; }
+  .head-in { grid-template-columns: 1fr auto; }
+  .head-in > span:first-child { display: none; }
+  .brand { text-align: left; font-size: 20px; }
+  .head-right { gap: 14px; }
+  .burger {
+    width: 44px;
+    height: 44px;
+    padding: 14px 8px;
+    box-sizing: border-box;
+  }
+  .ig { width: 44px; height: 44px; padding: 11px; box-sizing: border-box; }
+
+  .wrap { padding: 0 20px; }
+  .band { padding: 48px 0; }
+  .grid-2, .grid-3, .about-grid, .form-card .row, .foot-in, .hero-split {
     grid-template-columns: 1fr;
   }
-  .photos-4 { gap: 20px; }
-  .lines { gap: 12px; max-width: 100%; }
-  .foot-in { text-align: center; }
-  .foot-in .email, .foot-in .ig { justify-self: center; }
-  .photo-hero h1 { font-size: 48px; }
-  .nav-panel nav { font-size: 22px; }
+
+  .lines {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    max-width: 220px;
+    margin: 12px auto 28px;
+    align-items: center;
+  }
+  .lines img,
+  .lines .line-center { width: 100%; max-width: 200px; }
+
+  .hero-copy { font-size: 26px; margin-bottom: 36px; padding: 0 8px; }
+
+  .photos-4 {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .about-grid img { max-width: 280px; margin: 8px auto 0; }
+
+  .photo-hero { min-height: 70vh; }
+  .photo-hero .inner { padding: 88px 20px 36px; }
+  .photo-hero h1 { font-size: 42px; }
+  .hero-split { min-height: 58vh; align-items: end; }
+  .pill-stack { justify-items: stretch; width: 100%; }
+  .pill { min-width: 0; width: 100%; padding: 14px 18px; }
+
+  .quote { font-size: 19px; }
+  .t-card { padding: 36px 0; }
+  .t-card .lead { font-size: 20px; }
+
+  .nav-panel {
+    min-width: min(280px, calc(100vw - 36px));
+    right: -8px;
+  }
+  .nav-panel nav a { padding: 12px 16px; }
+
+  .foot-in {
+    text-align: center;
+    gap: 12px;
+  }
+  .foot-in .email,
+  .foot-in .ig { justify-self: center; }
+
+  .form-modal { padding: 12px; align-items: flex-end; }
+  .form-card { padding: 20px 16px 28px; max-height: 92vh; }
+  .form-card input,
+  .form-card textarea,
+  .form-card select { font-size: 16px; }
+
+  .floral { width: min(240px, 80%); }
+}
+
+@media (max-width: 420px) {
+  .brand { font-size: 18px; }
+  .hero-copy { font-size: 23px; }
+  .photo-hero h1 { font-size: 36px; }
 }
