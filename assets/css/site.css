@@ -161,7 +161,6 @@ body.hero-page .site-head {
   text-transform: uppercase;
 }
 .foot-in a { text-decoration: none; }
-.foot-in .email { justify-self: end; letter-spacing: .04em; text-transform: none; font-size: 14px; }
 .foot-in .ig { width: 18px; height: 18px; justify-self: center; }
 
 /* layout bits */
@@ -400,7 +399,6 @@ body.hero-page .site-head {
     text-align: center;
     gap: 12px;
   }
-  .foot-in .email,
   .foot-in .ig { justify-self: center; }
 
   .form-modal { padding: 12px; align-items: flex-end; }

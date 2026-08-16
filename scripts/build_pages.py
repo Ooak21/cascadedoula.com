@@ -78,7 +78,7 @@ def page(path: str, title: str, desc: str, body: str, head="on-light", extra_hea
   <div class="foot-in">
     <span>Cascade Doula Care</span>
     <a class="ig" href="https://www.instagram.com/doulanicolelakey/" target="_blank" rel="noopener" aria-label="Instagram">{ig}</a>
-    <a class="email" href="mailto:cascadedoulanl@gmail.com">cascadedoulanl@gmail.com</a>
+    <span></span>
   </div>
 </footer>
 {FORM}
