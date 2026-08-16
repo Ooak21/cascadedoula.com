@@ -147,11 +147,12 @@ body.hero-page .site-head {
 }
 .logo {
   display: block;
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 64px;
   justify-self: start;
 }
 .logo img { width: 100%; height: 100%; object-fit: contain; }
+body.hero-page .logo img { filter: invert(1); }
 
 /* footer */
 .site-foot {
@@ -360,7 +361,7 @@ body.hero-page .site-head {
   body { font-size: 16px; }
   .site-head { padding: 16px 18px 8px; }
   .head-in { grid-template-columns: auto 1fr auto; gap: 10px; }
-  .logo { width: 40px; height: 40px; }
+  .logo { width: 52px; height: 52px; }
   .brand { text-align: center; font-size: 18px; }
   .head-right { gap: 14px; }
   .burger {
