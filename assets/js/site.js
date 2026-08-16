@@ -1,19 +1,28 @@
 (function () {
-  const btn = document.querySelector(".navtoggle");
-  const nav = document.querySelector(".nav-left");
-  if (btn && nav) {
-    btn.addEventListener("click", () => {
-      const open = nav.classList.toggle("open");
-      btn.setAttribute("aria-expanded", open ? "true" : "false");
-    });
+  const panel = document.getElementById("navPanel");
+  const openers = document.querySelectorAll(".burger:not([data-close-nav])");
+  const closers = document.querySelectorAll("[data-close-nav]");
+  function open() {
+    panel?.classList.add("open");
+    openers.forEach((b) => b.setAttribute("aria-expanded", "true"));
+    document.body.style.overflow = "hidden";
   }
+  function close() {
+    panel?.classList.remove("open");
+    openers.forEach((b) => b.setAttribute("aria-expanded", "false"));
+    document.body.style.overflow = "";
+  }
+  openers.forEach((b) => b.addEventListener("click", open));
+  closers.forEach((b) => b.addEventListener("click", close));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
 
   const modal = document.getElementById("contactModal");
   document.querySelectorAll("[data-open-form]").forEach((el) => {
     el.addEventListener("click", (e) => {
       e.preventDefault();
-      if (!modal) return;
-      modal.classList.add("open");
+      modal?.classList.add("open");
     });
   });
   modal?.querySelector("[data-close-form]")?.addEventListener("click", () => modal.classList.remove("open"));
@@ -47,7 +56,7 @@
     }
     const site = (window.CASCADE && window.CASCADE.convexSite) || "";
     if (!site) {
-      msg.textContent = "Form is wired. Convex is not linked on this preview yet, so this did not send. Nicole will get these once the Convex project is created.";
+      msg.textContent = "Form is wired. Convex is not linked on this preview yet, so this did not send.";
       form.reset();
       return;
     }

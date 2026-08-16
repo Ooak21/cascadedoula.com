@@ -38,6 +38,7 @@ def page(path: str, title: str, desc: str, body: str, head="on-light", extra_hea
         cur = ' aria-current="page"' if href == path else ""
         items.append(f'<a href="{href}"{cur}>{esc(label)}</a>')
     nav = "\n        ".join(items)
+    ig = '''<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7.2A4.8 4.8 0 1 0 12 16.8 4.8 4.8 0 0 0 12 7.2zm0 7.9a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2zM17.6 6.9a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0zM12 2.5c-2.6 0-2.9 0-3.9.1-2.4.1-3.6 1.3-3.7 3.7-.1 1 0 1.3 0 3.9s0 2.9.1 3.9c.1 2.4 1.3 3.6 3.7 3.7 1 .1 1.3.1 3.9.1s2.9 0 3.9-.1c2.4-.1 3.6-1.3 3.7-3.7.1-1 .1-1.3.1-3.9s0-2.9-.1-3.9c-.1-2.4-1.3-3.6-3.7-3.7-1-.1-1.3-.1-3.9-.1zm0 1.5c2.5 0 2.8 0 3.8.1 1.8.1 2.6.9 2.7 2.7.1 1 .1 1.3.1 3.8s0 2.8-.1 3.8c-.1 1.8-.9 2.6-2.7 2.7-1 .1-1.3.1-3.8.1s-2.8 0-3.8-.1c-1.8-.1-2.6-.9-2.7-2.7-.1-1-.1-1.3-.1-3.8s0-2.8.1-3.8c.1-1.8.9-2.6 2.7-2.7 1-.1 1.3-.1 3.8-.1z"/></svg>'''
     html = f"""<!doctype html>
 <html lang="en">
 <head>
@@ -57,19 +58,30 @@ def page(path: str, title: str, desc: str, body: str, head="on-light", extra_hea
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head {head}">
   <div class="head-in">
-    <nav class="nav-left" id="nav">{nav}</nav>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="navPanel" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
     <a class="brand" href="/">Cascade Doula Care</a>
-    <a class="ig desktop" href="https://www.instagram.com/doulanicolelakey/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
-    <button class="navtoggle" aria-expanded="false" aria-controls="nav">Menu</button>
+    <a class="ig" href="https://www.instagram.com/doulanicolelakey/" target="_blank" rel="noopener" aria-label="Instagram">{ig}</a>
   </div>
 </header>
+<div class="nav-panel" id="navPanel">
+  <div class="nav-top">
+    <button class="burger" type="button" data-close-nav aria-label="Close menu">
+      <span></span><span></span>
+    </button>
+    <a class="brand" href="/">Cascade Doula Care</a>
+    <a class="ig" href="https://www.instagram.com/doulanicolelakey/" target="_blank" rel="noopener" aria-label="Instagram">{ig}</a>
+  </div>
+  <nav>{nav}</nav>
+</div>
 <main id="main">
 {body}
 </main>
 <footer class="site-foot">
   <div class="foot-in">
     <span>Cascade Doula Care</span>
-    <a class="ig" href="https://www.instagram.com/doulanicolelakey/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+    <a class="ig" href="https://www.instagram.com/doulanicolelakey/" target="_blank" rel="noopener" aria-label="Instagram">{ig}</a>
     <a class="email" href="mailto:cascadedoulanl@gmail.com">cascadedoulanl@gmail.com</a>
   </div>
 </footer>
@@ -135,9 +147,11 @@ page(
       <img src="/assets/img/line-3.png" alt="">
     </div>
     <p class="hero-copy">Providing unbiased, unwavering birth and postpartum support for birthing mothers and families in Scotts Valley, Santa Cruz, San Jose and surrounding areas.</p>
-    <div class="grid-2 photo-pair" style="margin-top:48px">
-      <img src="/assets/img/photo-boardwalk.jpg" alt="Pregnant woman holding her belly on a boardwalk">
-      <img src="/assets/img/photo-coast.jpg" alt="Couple holding a pregnant belly at the coast">
+    <div class="photos-4">
+      <figure><img src="/assets/img/photo-boardwalk.jpg" alt=""></figure>
+      <figure><img src="/assets/img/photo-couple.jpg" alt=""></figure>
+      <figure><img src="/assets/img/photo-garden.jpg" alt=""></figure>
+      <figure><img src="/assets/img/photo-coast.jpg" alt=""></figure>
     </div>
   </div>
 </section>
