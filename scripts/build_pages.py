@@ -48,8 +48,8 @@ def page(path: str, title: str, desc: str, body: str, head="on-light", extra_hea
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{canon}">
-<link rel="icon" href="/favicon.ico?v=2">
-<link rel="apple-touch-icon" href="/assets/img/apple-touch.png?v=2">
+<link rel="icon" href="/favicon.ico?v=3">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch.png?v=3">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cascade Doula Care">
 <meta property="og:title" content="{esc(title)}">
@@ -72,7 +72,10 @@ def page(path: str, title: str, desc: str, body: str, head="on-light", extra_hea
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head {head}">
   <div class="head-in">
-    <a class="logo" href="/" aria-label="Cascade Doula Care home"><img src="/assets/img/logo.png" alt="Cascade Doula Care"></a>
+    <a class="logo" href="/" aria-label="Cascade Doula Care home">
+      <img class="logo-on-dark" src="/assets/img/logo.png" alt="Cascade Doula Care">
+      <img class="logo-on-light" src="/assets/img/logo-mauve.png" alt="">
+    </a>
     <a class="brand" href="/">Cascade Doula Care</a>
     <div class="head-right">
       <a class="ig" href="https://www.instagram.com/doulanicolelakey/" target="_blank" rel="noopener" aria-label="Instagram">{ig}</a>

@@ -152,7 +152,9 @@ body.hero-page .site-head {
   justify-self: start;
 }
 .logo img { width: 100%; height: 100%; object-fit: contain; }
-body.hero-page .logo img { filter: invert(1); }
+.logo .logo-on-light { display: none; }
+.site-head.on-light .logo .logo-on-dark { display: none; }
+.site-head.on-light .logo .logo-on-light { display: block; }
 
 /* footer */
 .site-foot {
