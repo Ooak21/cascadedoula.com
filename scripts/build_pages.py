@@ -65,22 +65,12 @@ def page(path: str, title: str, desc: str, body: str, head="on-light", extra_hea
       <button class="burger" type="button" aria-expanded="false" aria-controls="navPanel" aria-label="Open menu">
         <span></span><span></span>
       </button>
+      <div class="nav-panel" id="navPanel">
+        <nav>{nav}</nav>
+      </div>
     </div>
   </div>
 </header>
-<div class="nav-panel" id="navPanel">
-  <div class="nav-top">
-    <span></span>
-    <a class="brand" href="/">Cascade Doula Care</a>
-    <div class="head-right">
-      <a class="ig" href="https://www.instagram.com/doulanicolelakey/" target="_blank" rel="noopener" aria-label="Instagram">{ig}</a>
-      <button class="burger" type="button" data-close-nav aria-label="Close menu">
-        <span></span><span></span>
-      </button>
-    </div>
-  </div>
-  <nav>{nav}</nav>
-</div>
 <main id="main">
 {body}
 </main>

@@ -1,19 +1,23 @@
 (function () {
   const panel = document.getElementById("navPanel");
-  const openers = document.querySelectorAll(".burger:not([data-close-nav])");
-  const closers = document.querySelectorAll("[data-close-nav]");
+  const burger = document.querySelector(".burger");
   function open() {
     panel?.classList.add("open");
-    openers.forEach((b) => b.setAttribute("aria-expanded", "true"));
-    document.body.style.overflow = "hidden";
+    burger?.setAttribute("aria-expanded", "true");
+    burger?.setAttribute("aria-label", "Close menu");
   }
   function close() {
     panel?.classList.remove("open");
-    openers.forEach((b) => b.setAttribute("aria-expanded", "false"));
-    document.body.style.overflow = "";
+    burger?.setAttribute("aria-expanded", "false");
+    burger?.setAttribute("aria-label", "Open menu");
   }
-  openers.forEach((b) => b.addEventListener("click", open));
-  closers.forEach((b) => b.addEventListener("click", close));
+  function toggle(e) {
+    e.stopPropagation();
+    panel?.classList.contains("open") ? close() : open();
+  }
+  burger?.addEventListener("click", toggle);
+  panel?.addEventListener("click", (e) => e.stopPropagation());
+  document.addEventListener("click", close);
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") close();
   });
