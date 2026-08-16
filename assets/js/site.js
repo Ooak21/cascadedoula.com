@@ -22,18 +22,6 @@
     if (e.key === "Escape") close();
   });
 
-  const modal = document.getElementById("contactModal");
-  document.querySelectorAll("[data-open-form]").forEach((el) => {
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-      modal?.classList.add("open");
-    });
-  });
-  modal?.querySelector("[data-close-form]")?.addEventListener("click", () => modal.classList.remove("open"));
-  modal?.addEventListener("click", (e) => {
-    if (e.target === modal) modal.classList.remove("open");
-  });
-
   const form = document.getElementById("intakeForm");
   if (!form) return;
   const msg = document.getElementById("formMsg");

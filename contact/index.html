@@ -47,16 +47,46 @@
     <p>DOULA HOURS: <mark>Monday - Friday (9am - 4pm)</mark></p>
   </div>
 </section>
-<section class="band bg-sage" style="min-height:280px">
+<section class="band bg-sage" style="min-height:220px">
   <div class="wrap pill-stack">
     <a class="pill" href="https://calendly.com/cascadedoulanl/30min" target="_blank" rel="noopener">SANTA CRUZ CONSULTATION</a>
     <a class="pill" href="https://calendly.com/cascadedoulanl/60-minute-consultation-clone" target="_blank" rel="noopener">LOS GATOS CONSULTATION</a>
   </div>
 </section>
-<section class="band bg-mauve center">
-  <div class="wrap">
-    <h2>CONTACT NICOLE !</h2>
-    <a class="pill" href="#form" data-open-form>Open Form</a>
+<section class="band bg-cream" id="write">
+  <div class="wrap contact-welcome">
+    <div class="welcome">
+      <img src="/assets/img/nicole.jpg" alt="Nicole Lakey">
+      <h2>Hi, I am Nicole</h2>
+      <p>I would love to hear from you. Tell me a little about you and your baby, and I will reach out soon. There is no wrong note to send.</p>
+    </div>
+    <form class="form-card on-page" id="intakeForm">
+      <div class="row">
+        <div><label for="firstName">First name</label><input id="firstName" name="firstName" required></div>
+        <div><label for="lastName">Last name</label><input id="lastName" name="lastName"></div>
+      </div>
+      <div class="row">
+        <div><label for="email">Email</label><input id="email" name="email" type="email"></div>
+        <div><label for="phone">Phone</label><input id="phone" name="phone" type="tel"></div>
+      </div>
+      <label for="dueDate">Estimated due date</label>
+      <input id="dueDate" name="dueDate" type="date">
+      <label for="provider">Who is your provider?</label>
+      <input id="provider" name="provider">
+      <label for="placeOfDelivery">Planned place of delivery?</label>
+      <input id="placeOfDelivery" name="placeOfDelivery">
+      <label for="about">Tell me about yourself</label>
+      <textarea id="about" name="about" rows="4"></textarea>
+      <fieldset class="checks">
+        <legend>What are you looking for?</legend>
+        <label><input type="checkbox" name="looking" value="Birth Doula"> Birth Doula</label>
+        <label><input type="checkbox" name="looking" value="One on One Virtual Support"> One on One Virtual Support</label>
+        <label><input type="checkbox" name="looking" value="Childbirth Education Classes"> Childbirth Education Classes</label>
+        <label><input type="checkbox" name="looking" value="Doula to Doula (Mentorship)"> Doula to Doula (Mentorship)</label>
+      </fieldset>
+      <button type="submit">Send a note</button>
+      <p class="form-msg" id="formMsg"></p>
+    </form>
   </div>
 </section>
 
@@ -68,40 +98,6 @@
     <span></span>
   </div>
 </footer>
-
-<div class="form-modal" id="contactModal">
-  <form class="form-card" id="intakeForm">
-    <h2>Contact Nicole</h2>
-    <p>Leave a note and I will reach out. Nothing sends until you submit.</p>
-    <div class="row">
-      <div><label for="firstName">First name</label><input id="firstName" name="firstName" required></div>
-      <div><label for="lastName">Last name</label><input id="lastName" name="lastName"></div>
-    </div>
-    <div class="row">
-      <div><label for="email">Email</label><input id="email" name="email" type="email"></div>
-      <div><label for="phone">Phone</label><input id="phone" name="phone" type="tel"></div>
-    </div>
-    <label for="dueDate">Estimated due date</label>
-    <input id="dueDate" name="dueDate" type="date">
-    <label for="provider">Who is your provider?</label>
-    <input id="provider" name="provider">
-    <label for="placeOfDelivery">Planned place of delivery?</label>
-    <input id="placeOfDelivery" name="placeOfDelivery">
-    <label for="about">Tell me about yourself</label>
-    <textarea id="about" name="about" rows="4"></textarea>
-    <fieldset class="checks">
-      <legend>What are you looking for?</legend>
-      <label><input type="checkbox" name="looking" value="Birth Doula"> Birth Doula</label>
-      <label><input type="checkbox" name="looking" value="One on One Virtual Support"> One on One Virtual Support</label>
-      <label><input type="checkbox" name="looking" value="Childbirth Education Classes"> Childbirth Education Classes</label>
-      <label><input type="checkbox" name="looking" value="Doula to Doula (Mentorship)"> Doula to Doula (Mentorship)</label>
-    </fieldset>
-    <button type="submit">Submit</button>
-    <button type="button" class="pill ghost" data-close-form style="margin-top:10px;width:100%">Close</button>
-    <p class="form-msg" id="formMsg"></p>
-  </form>
-</div>
-
 <script src="/assets/js/config.js"></script>
 <script src="/assets/js/site.js"></script>
 </body>
