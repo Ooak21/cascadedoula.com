@@ -48,8 +48,8 @@ def page(path: str, title: str, desc: str, body: str, head="on-light", extra_hea
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{canon}">
-<link rel="icon" href="/favicon.ico">
-<link rel="apple-touch-icon" href="/assets/img/apple-touch.png">
+<link rel="icon" href="/favicon.ico?v=2">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch.png?v=2">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cascade Doula Care">
 <meta property="og:title" content="{esc(title)}">
