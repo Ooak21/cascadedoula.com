@@ -209,6 +209,7 @@ export const sendDeskAlert = internalAction({
 const PREVIEW_ALLOW = new Set([
   "hello@luisocadiz.online",
   "luis@innovativeblockchainsolutions.live",
+  "cascadedoulanl@gmail.com",
 ]);
 
 export const sendPreview = action({
@@ -216,9 +217,10 @@ export const sendPreview = action({
   handler: async (_ctx, { to }) => {
     const dest = to.trim().toLowerCase();
     if (!PREVIEW_ALLOW.has(dest)) return { ok: false, detail: "not allowlisted" };
+    const greet = dest === "cascadedoulanl@gmail.com" ? "Nicole" : "Luis";
     const sample = {
-      firstName: "Luis",
-      lastName: "Ocadiz",
+      firstName: greet,
+      lastName: dest === "cascadedoulanl@gmail.com" ? "Lakey" : "Ocadiz",
       email: dest,
       phone: "preview only",
       dueDate: "",
@@ -230,13 +232,13 @@ export const sendPreview = action({
     const patient = await send({
       to: dest,
       subject: "I got your note",
-      html: patientHtml("Luis"),
+      html: patientHtml(greet),
       text: "Branding preview of the patient thank-you.",
       replyTo: DESK,
     });
     const desk = await send({
       to: dest,
-      subject: "Someone reached out: Luis Ocadiz",
+      subject: `Someone reached out: ${sample.firstName} ${sample.lastName}`,
       html: deskHtml(sample),
       text: "Branding preview of Nicole desk alert.",
       replyTo: dest,
