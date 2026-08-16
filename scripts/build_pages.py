@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 T = json.loads((ROOT / "scripts" / "testimonials.json").read_text())
 
 NAV = [
-    ("/", "Home", False),
+    ("/", "Home", True),
     ("/about/", "Meet Nicole", True),
     ("/services/", "Services", True),
     ("/testimonials/", "Testimonials", True),
@@ -38,6 +38,7 @@ def page(path: str, title: str, desc: str, body: str, head="on-light", extra_hea
         cur = ' aria-current="page"' if href == path else ""
         items.append(f'<a href="{href}"{cur}>{esc(label)}</a>')
     nav = "\n        ".join(items)
+    home_label = "Home" if path == "/" else "Back to Home"
     ig = '''<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>'''
     html = f"""<!doctype html>
 <html lang="en">
@@ -58,12 +59,12 @@ def page(path: str, title: str, desc: str, body: str, head="on-light", extra_hea
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head {head}">
   <div class="head-in">
-    <span></span>
+    <a class="home-link" href="/">{home_label}</a>
     <a class="brand" href="/">Cascade Doula Care</a>
     <div class="head-right">
       <a class="ig" href="https://www.instagram.com/doulanicolelakey/" target="_blank" rel="noopener" aria-label="Instagram">{ig}</a>
       <button class="burger" type="button" aria-expanded="false" aria-controls="navPanel" aria-label="Open menu">
-        <span></span><span></span>
+        <span></span><span></span><span></span>
       </button>
       <div class="nav-panel" id="navPanel">
         <nav>{nav}</nav>
@@ -76,7 +77,7 @@ def page(path: str, title: str, desc: str, body: str, head="on-light", extra_hea
 </main>
 <footer class="site-foot">
   <div class="foot-in">
-    <span>Cascade Doula Care</span>
+    <a href="/">Cascade Doula Care</a>
     <a class="ig" href="https://www.instagram.com/doulanicolelakey/" target="_blank" rel="noopener" aria-label="Instagram">{ig}</a>
     <span></span>
   </div>
