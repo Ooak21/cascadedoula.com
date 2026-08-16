@@ -337,7 +337,7 @@ page(
   <img class="bg" src="/assets/img/photo-boardwalk.jpg" alt="">
   <div class="veil"></div>
   <div class="inner hero-split">
-    <h1>consultation</h1>
+    <h1>Consultation</h1>
     <div class="pill-stack">
       <a class="pill" href="https://calendly.com/cascadedoulanl/30min" target="_blank" rel="noopener">book now // Santa Cruz</a>
       <a class="pill" href="https://calendly.com/cascadedoulanl/60-minute-consultation-clone" target="_blank" rel="noopener">book now // los gatos</a>
@@ -356,7 +356,7 @@ page(
     """
 <section class="band bg-paper">
   <div class="wrap hours">
-    <h1>office hours</h1>
+    <h1>Office Hours</h1>
     <p>LABOR SERVICE: <mark>available 24/7</mark></p>
     <p>DOULA HOURS: <mark>Monday - Friday (9am - 4pm)</mark></p>
   </div>
@@ -476,7 +476,7 @@ page(
   <img class="bg" src="/assets/img/photo-boardwalk.jpg" alt="">
   <div class="veil"></div>
   <div class="inner center">
-    <h1>for my mamas</h1>
+    <h1>For My Mamas</h1>
     <p>some resources i've collected for you</p>
   </div>
 </section>
