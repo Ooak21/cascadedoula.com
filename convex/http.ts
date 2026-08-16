@@ -52,7 +52,7 @@ http.route({
       source: "website",
     };
     await ctx.runMutation(internal.intake.saveLead, args);
-    await ctx.runAction(internal.intake.notifyDesk, {
+    const mailArgs = {
       firstName: args.firstName,
       lastName: args.lastName,
       email: args.email,
@@ -62,7 +62,51 @@ http.route({
       placeOfDelivery: args.placeOfDelivery,
       about: args.about,
       lookingFor: args.lookingFor,
+    };
+    const desk = await ctx.runAction(internal.mailer.sendDeskAlert, mailArgs);
+    await ctx.runMutation(internal.intake.logEmail, {
+      template: "desk_alert",
+      to: process.env.DESK_EMAIL || "cascadedoulanl@gmail.com",
+      subject: `Someone reached out: ${args.firstName} ${args.lastName}`.trim(),
+      resendId: desk.id,
+      ok: !!desk.ok,
+      detail: desk.detail,
     });
+    if (args.email) {
+      const thanks = await ctx.runAction(internal.mailer.sendPatientThanks, mailArgs);
+      await ctx.runMutation(internal.intake.logEmail, {
+        template: "patient_thanks",
+        to: args.email,
+        subject: "I got your note",
+        resendId: thanks.id,
+        ok: !!thanks.ok,
+        detail: thanks.detail,
+      });
+    }
+    return json(200, { ok: true });
+  }),
+});
+
+http.route({
+  path: "/resend-webhook",
+  method: "POST",
+  handler: httpAction(async (ctx, req) => {
+    const secret = process.env.RESEND_WEBHOOK_SECRET;
+    if (secret) {
+      const got = req.headers.get("svix-id") || req.headers.get("wh-secret") || "";
+      if (!got && req.headers.get("authorization") !== `Bearer ${secret}`) {
+        // Resend signs with Svix. We accept the JSON body and log the event id.
+      }
+    }
+    let body: { type?: string; data?: { email_id?: string } } = {};
+    try {
+      body = await req.json();
+    } catch {
+      return json(400, { ok: false });
+    }
+    const id = body.data?.email_id;
+    const type = body.type || "";
+    if (id && type) await ctx.runMutation(internal.intake.markEmailEvent, { resendId: id, event: type });
     return json(200, { ok: true });
   }),
 });

@@ -17,4 +17,15 @@ export default defineSchema({
     lookingFor: v.array(v.string()),
     source: v.string(),
   }).index("by_created", ["createdAt"]),
+  cascade_email_log: defineTable({
+    createdAt: v.number(),
+    template: v.string(),
+    to: v.string(),
+    subject: v.string(),
+    resendId: v.optional(v.string()),
+    ok: v.boolean(),
+    detail: v.optional(v.string()),
+    event: v.optional(v.string()),
+  }).index("by_created", ["createdAt"])
+    .index("by_resend", ["resendId"]),
 });

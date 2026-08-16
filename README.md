@@ -13,6 +13,8 @@ python3 -m http.server 8022
 
 Open http://127.0.0.1:8022/
 
+Go-live checklist: `GO_LIVE.md`
+
 ## Convex (BAA)
 
 ```bash
