@@ -145,13 +145,13 @@ body.hero-page .site-head {
 .nav-panel nav a[aria-current="page"] {
   background: var(--cream);
 }
-.home-link {
-  font-family: var(--serif);
-  font-size: 15px;
-  text-decoration: none;
+.logo {
+  display: block;
+  width: 48px;
+  height: 48px;
   justify-self: start;
 }
-.home-link:hover { text-decoration: underline; }
+.logo img { width: 100%; height: 100%; object-fit: contain; }
 
 /* footer */
 .site-foot {
@@ -360,7 +360,7 @@ body.hero-page .site-head {
   body { font-size: 16px; }
   .site-head { padding: 16px 18px 8px; }
   .head-in { grid-template-columns: auto 1fr auto; gap: 10px; }
-  .home-link { font-size: 14px; }
+  .logo { width: 40px; height: 40px; }
   .brand { text-align: center; font-size: 18px; }
   .head-right { gap: 14px; }
   .burger {

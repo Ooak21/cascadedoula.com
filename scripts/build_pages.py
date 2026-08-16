@@ -38,8 +38,8 @@ def page(path: str, title: str, desc: str, body: str, head="on-light", extra_hea
         cur = ' aria-current="page"' if href == path else ""
         items.append(f'<a href="{href}"{cur}>{esc(label)}</a>')
     nav = "\n        ".join(items)
-    home_label = "Home" if path == "/" else "Back to Home"
     ig = '''<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>'''
+    canon = f"https://www.cascadedoula.com{path}"
     html = f"""<!doctype html>
 <html lang="en">
 <head>
@@ -47,8 +47,21 @@ def page(path: str, title: str, desc: str, body: str, head="on-light", extra_hea
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
-<link rel="canonical" href="https://www.cascadedoula.com{path}">
+<link rel="canonical" href="{canon}">
 <link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cascade Doula Care">
+<meta property="og:title" content="{esc(title)}">
+<meta property="og:description" content="{esc(desc)}">
+<meta property="og:url" content="{canon}">
+<meta property="og:image" content="https://www.cascadedoula.com/assets/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{esc(title)}">
+<meta name="twitter:description" content="{esc(desc)}">
+<meta name="twitter:image" content="https://www.cascadedoula.com/assets/img/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&display=swap" rel="stylesheet">
@@ -59,7 +72,7 @@ def page(path: str, title: str, desc: str, body: str, head="on-light", extra_hea
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head {head}">
   <div class="head-in">
-    <a class="home-link" href="/">{home_label}</a>
+    <a class="logo" href="/" aria-label="Cascade Doula Care home"><img src="/assets/img/logo.png" alt="Cascade Doula Care"></a>
     <a class="brand" href="/">Cascade Doula Care</a>
     <div class="head-right">
       <a class="ig" href="https://www.instagram.com/doulanicolelakey/" target="_blank" rel="noopener" aria-label="Instagram">{ig}</a>
