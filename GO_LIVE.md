@@ -1,6 +1,8 @@
-# Where we are before pointing cascadedoula.com
+# Live
 
-Today: 2026-08-15. Squarespace **site** plan ends 2026-08-16. The **domain** stays at Squarespace Domains until 2027-03-21.
+Cut over 2026-08-15. Luis confirmed our site on mobile. Nicole confirmed both branded emails.
+
+Squarespace **site** plan ends 2026-08-16. The **domain** stays at Squarespace Domains until 2027-03-21. Do not cancel the domain.
 
 ## Ready
 
