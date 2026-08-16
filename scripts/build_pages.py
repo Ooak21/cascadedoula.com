@@ -8,16 +8,16 @@ ROOT = Path(__file__).resolve().parents[1]
 T = json.loads((ROOT / "scripts" / "testimonials.json").read_text())
 
 NAV = [
-    ("/", "home", False),
-    ("/about/", "meet nicole", True),
-    ("/services/", "services", True),
-    ("/testimonials/", "testimonials", True),
-    ("/services-packages/", "birth doula", True),
-    ("/resources-for-mamas/", "resources for mamas", True),
-    ("/consultation/", "consultation", True),
-    ("/body-ready-method/", "body ready method", True),
-    ("/creative-funding/", "creative funding", True),
-    ("/contact/", "contact", True),
+    ("/", "Home", False),
+    ("/about/", "Meet Nicole", True),
+    ("/services/", "Services", True),
+    ("/testimonials/", "Testimonials", True),
+    ("/services-packages/", "Birth Doula", True),
+    ("/resources-for-mamas/", "Resources for Mamas", True),
+    ("/consultation/", "Consultation", True),
+    ("/body-ready-method/", "Body Ready Method", True),
+    ("/creative-funding/", "Creative Funding", True),
+    ("/contact/", "Contact", True),
 ]
 
 

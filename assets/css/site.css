@@ -134,7 +134,7 @@ body.hero-page .site-head {
   text-decoration: none;
   font-family: var(--serif);
   font-size: 16px;
-  font-style: italic;
+  font-style: normal;
   padding: 9px 16px;
 }
 .nav-panel nav a:hover,
