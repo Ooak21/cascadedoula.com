@@ -1,11 +1,10 @@
 import { internalAction } from "./_generated/server";
 import { v } from "convex/values";
 
-// Sending domain: hello@cascadedoula.com once Resend verifies it.
-// Until then we fall back to the verified IBS send-only address and always set reply_to.
+// From is set on the existing cascade-doula prod env (RESEND_FROM).
 const FROM =
   process.env.RESEND_FROM ||
-  "Cascade Doula Care <hello@ibs.luisocadiz.online>";
+  "Cascade Doula Care <hello@cascadedoula.com>";
 const DESK = process.env.DESK_EMAIL || "cascadedoulanl@gmail.com";
 const DESK_CC = process.env.DESK_CC || "";
 const PHOTO =

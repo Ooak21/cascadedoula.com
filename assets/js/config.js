@@ -1,6 +1,6 @@
-// Convex HTTP site URL. Empty until `npx convex dev` creates the project.
-// After deploy this becomes https://<deployment>.convex.site
+// Existing Convex project Claude already made: cascade-doula (team IBS).
+// Deployment zany-cassowary-596. Do not create a second project.
 window.CASCADE = {
-  convexSite: "",
+  convexSite: "https://zany-cassowary-596.convex.site",
   email: "cascadedoulanl@gmail.com",
 };

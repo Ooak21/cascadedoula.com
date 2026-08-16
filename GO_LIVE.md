@@ -9,17 +9,23 @@ Today: 2026-08-15. Squarespace **site** plan ends 2026-08-16. The **domain** sta
 | Faithful static site | Local at `~/cascadedoula.com`, preview http://127.0.0.1:8022/ |
 | Own git repo | Yes. Local `main` only. **No GitHub remote yet.** |
 | Contact form on the page | Yes. Nicole photo + fields. No popup. |
-| Convex code | `convex/http.ts` `/intake` + `/resend-webhook`. Leads + email log. |
+| Convex | Existing `IBS/cascade-doula` prod `zany-cassowary-596`. Mailer + `/resend-webhook` **deployed**. Form pointed at it. |
 | Email copy | Patient: "I got your note" with her picture at the bottom. Nicole: "Someone reached out." Reply-To is the patient. |
 | CNAME file | `www.cascadedoula.com` in the repo for Pages |
 
 ## Not ready (blocks a DNS flip)
 
 1. **GitHub repo + Pages.** Create `Ooak21/cascadedoula.com`, push `main`, turn on Pages from root. Until that exists there is nothing to point the domain at.
-2. **Convex project.** Code is written. `npx convex dev` has not created a deployment. `assets/js/config.js` still has `convexSite: ""`. The form cannot save or send until this is live.
-3. **Resend domain `cascadedoula.com`.** Not verified. Sending from `hello@cascadedoula.com` will 403 until Luis adds the TXT/DKIM records Resend gives us at Squarespace Domains. Do **not** change MX. MX stays Namecheap eforward so her existing mail keeps working. We only add SPF + DKIM TXT for sending.
-4. **Convex secrets.** After the project exists: `RESEND_API_KEY`, `RESEND_FROM=Cascade Doula Care <hello@cascadedoula.com>` (or the IBS fallback until verify), `DESK_EMAIL=cascadedoulanl@gmail.com`, optional `DESK_CC`, `RESEND_WEBHOOK_SECRET`, `NICOLE_PHOTO_URL` (can stay the Squarespace CDN until Pages is up).
-5. **Resend webhook.** Point Resend "emails" webhook at `https://<deployment>.convex.site/resend-webhook` after Convex exists.
+2. **Convex project.** Already exists on team IBS. Do not make another.
+   - Dashboard: https://dashboard.convex.dev/t/IBS/cascade-doula
+   - Prod: `zany-cassowary-596` → https://zany-cassowary-596.convex.site/intake
+   - Dev: `knowing-gopher-830`
+   - Live API is snake_case: `first_name` + email or phone. Table `cascade_leads` is empty.
+   - Live functions: `POST /intake`, `POST /resend-webhook`, `intake.create` / `notify` / `admin.recent` / `admin.purgeByEmail`, mailer desk + patient.
+   - Env names on prod: `RESEND_API_KEY`, `RESEND_FROM`, `DESK_EMAIL`. Do not make another project.
+3. **Resend domain `cascadedoula.com`.** Verified 2026-08-15 on **miguelloza** Pro. Sending ready. Apex MX still Namecheap eforward. **Leave Enable Receiving off.**
+4. **Convex secrets.** Set on prod. Values stay in the Convex dashboard, never in git.
+5. **Resend webhook.** Still a click in Resend: Webhooks → `https://zany-cassowary-596.convex.site/resend-webhook` (email sent / delivered / bounced). The route is live.
 
 ## DNS flip (last)
 
@@ -32,19 +38,20 @@ When Pages is green and Convex answers `/intake`:
 
 Do not cancel the domain. Do not move MX to Resend unless we later want inbound at Resend.
 
-## Fallback until her domain verifies
+## From address
 
-From: `Cascade Doula Care <hello@ibs.luisocadiz.online>` (already verified, send-only).
+From: `Cascade Doula Care <hello@cascadedoula.com>` (verified).
 Reply-To: `cascadedoulanl@gmail.com` on patient mail. Reply-To: the patient on Nicole's alert.
 
 ## Order of operations
 
-1. `gh repo create Ooak21/cascadedoula.com --public --source=. --remote=origin --push`
-2. Enable GitHub Pages on `main` / root
-3. `npx convex dev` (new project, not Vitality)
-4. Put the `.convex.site` URL in `assets/js/config.js` and commit
-5. `npx convex env set` the secrets
-6. Create + verify `cascadedoula.com` in Resend, add TXT records at Squarespace Domains
-7. Hook Resend webhook to `/resend-webhook`
-8. Submit the contact form once. Confirm Nicole gets "Someone reached out" and the tester gets "I got your note" with her photo
-9. Then, and only then, point A / www at Pages
+1. Resend domain verified. Sending is ready. Receiving stays off.
+2. **Now:** API keys → create a **send-only** key named `cascade-doula`. Do not reuse the restricted Silver Canyon key.
+3. `gh repo create Ooak21/cascadedoula.com --public --source=. --remote=origin --push`
+4. Enable GitHub Pages on `main` / root
+5. Link this repo to the existing project (do not create): `npx convex dev --once --configure=existing --team IBS --project cascade-doula` then deploy to **prod** `zany-cassowary-596`. Merge first so we do not wipe `admin.js`.
+6. `config.js` already points at `https://zany-cassowary-596.convex.site`. Leave it.
+7. `npx convex env set --prod --deployment IBS:cascade-doula:prod RESEND_API_KEY ...` / `RESEND_FROM` / `DESK_EMAIL=cascadedoulanl@gmail.com`
+8. Resend → Webhooks → `https://zany-cassowary-596.convex.site/resend-webhook` (email sent / delivered / bounced) **after** that route exists on prod.
+9. Submit the contact form once. Nicole gets "Someone reached out." Tester gets "I got your note" with her photo.
+10. Then point A / www at Pages. Leave apex MX alone.

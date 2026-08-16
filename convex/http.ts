@@ -29,60 +29,30 @@ http.route({
     } catch {
       return json(400, { ok: false, error: "bad json" });
     }
-    const firstName = String(body.firstName || "").trim().slice(0, 80);
-    const lastName = String(body.lastName || "").trim().slice(0, 80);
+    const firstName = String(body.firstName || body.first_name || "").trim().slice(0, 80);
+    const lastName = String(body.lastName || body.last_name || "").trim().slice(0, 80);
     const email = String(body.email || "").trim().slice(0, 160);
     const phone = String(body.phone || "").trim().slice(0, 40);
-    if (!firstName || !(email || phone)) {
-      return json(400, { ok: false, error: "name and email or phone required" });
-    }
-    const lookingFor = Array.isArray(body.lookingFor)
-      ? body.lookingFor.map((x) => String(x).slice(0, 80)).slice(0, 8)
+    if (!firstName) return json(400, { ok: false, error: "first name is required" });
+    if (!email && !phone) return json(400, { ok: false, error: "an email or phone is required" });
+    const lookingRaw = body.lookingFor || body.interests;
+    const lookingFor = Array.isArray(lookingRaw)
+      ? lookingRaw.map((x) => String(x).slice(0, 80)).slice(0, 8)
       : [];
-    const args = {
-      firstName,
-      lastName,
+    const leadId = await ctx.runMutation(internal.intake.create, {
+      first_name: firstName,
+      last_name: lastName || undefined,
       email: email || undefined,
       phone: phone || undefined,
-      dueDate: String(body.dueDate || "").trim().slice(0, 40) || undefined,
+      edd: String(body.dueDate || body.edd || "").trim().slice(0, 40) || undefined,
       provider: String(body.provider || "").trim().slice(0, 160) || undefined,
-      placeOfDelivery: String(body.placeOfDelivery || "").trim().slice(0, 160) || undefined,
-      about: String(body.about || "").trim().slice(0, 2000) || undefined,
-      lookingFor,
-      source: "website",
-    };
-    await ctx.runMutation(internal.intake.saveLead, args);
-    const mailArgs = {
-      firstName: args.firstName,
-      lastName: args.lastName,
-      email: args.email,
-      phone: args.phone,
-      dueDate: args.dueDate,
-      provider: args.provider,
-      placeOfDelivery: args.placeOfDelivery,
-      about: args.about,
-      lookingFor: args.lookingFor,
-    };
-    const desk = await ctx.runAction(internal.mailer.sendDeskAlert, mailArgs);
-    await ctx.runMutation(internal.intake.logEmail, {
-      template: "desk_alert",
-      to: process.env.DESK_EMAIL || "cascadedoulanl@gmail.com",
-      subject: `Someone reached out: ${args.firstName} ${args.lastName}`.trim(),
-      resendId: desk.id,
-      ok: !!desk.ok,
-      detail: desk.detail,
+      birth_place: String(body.placeOfDelivery || body.birth_place || "").trim().slice(0, 160) || undefined,
+      message: String(body.about || body.message || "").trim().slice(0, 2000) || undefined,
+      interests: lookingFor,
+      source: String(body.source || "website"),
+      user_agent: String(req.headers.get("user-agent") || "").slice(0, 200) || undefined,
     });
-    if (args.email) {
-      const thanks = await ctx.runAction(internal.mailer.sendPatientThanks, mailArgs);
-      await ctx.runMutation(internal.intake.logEmail, {
-        template: "patient_thanks",
-        to: args.email,
-        subject: "I got your note",
-        resendId: thanks.id,
-        ok: !!thanks.ok,
-        detail: thanks.detail,
-      });
-    }
+    await ctx.runAction(internal.intake.notify, { leadId });
     return json(200, { ok: true });
   }),
 });

@@ -17,15 +17,13 @@ Go-live checklist: `GO_LIVE.md`
 
 ## Convex (BAA)
 
+Existing project on team IBS: `cascade-doula`.
+Prod HTTP: `https://zany-cassowary-596.convex.site`. Already in `assets/js/config.js`.
+Do not run `npx convex dev` in a way that creates a new project. Do not reuse Vitality or Silver Canyon.
+
 ```bash
 npm install
-npx convex dev          # creates a NEW project. Do not reuse Vitality.
-```
-
-Then put the HTTP site URL in `assets/js/config.js`:
-
-```js
-convexSite: "https://<deployment>.convex.site"
+npx convex dev --once --configure=existing --team IBS --project cascade-doula
 ```
 
 Secrets (Convex dashboard, never in git):

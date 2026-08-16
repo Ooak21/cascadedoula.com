@@ -30,26 +30,35 @@
     msg.textContent = "";
     const fd = new FormData(form);
     const looking = [...form.querySelectorAll("input[name=looking]:checked")].map((i) => i.value);
+    const firstName = String(fd.get("firstName") || "").trim();
+    const lastName = String(fd.get("lastName") || "").trim();
+    const email = String(fd.get("email") || "").trim();
+    const phone = String(fd.get("phone") || "").trim();
     const payload = {
-      firstName: String(fd.get("firstName") || "").trim(),
-      lastName: String(fd.get("lastName") || "").trim(),
-      email: String(fd.get("email") || "").trim(),
-      phone: String(fd.get("phone") || "").trim(),
+      firstName,
+      lastName,
+      email,
+      phone,
       dueDate: String(fd.get("dueDate") || "").trim(),
       provider: String(fd.get("provider") || "").trim(),
       placeOfDelivery: String(fd.get("placeOfDelivery") || "").trim(),
       about: String(fd.get("about") || "").trim(),
       lookingFor: looking,
       source: "website",
+      first_name: firstName,
+      last_name: lastName,
+      edd: String(fd.get("dueDate") || "").trim(),
+      birth_place: String(fd.get("placeOfDelivery") || "").trim(),
+      message: String(fd.get("about") || "").trim(),
+      interests: looking,
     };
-    if (!payload.firstName || !(payload.email || payload.phone)) {
+    if (!firstName || !(email || phone)) {
       msg.textContent = "Please leave a first name and an email or phone.";
       return;
     }
     const site = (window.CASCADE && window.CASCADE.convexSite) || "";
     if (!site) {
-      msg.textContent = "Form is wired. Convex is not linked on this preview yet, so this did not send.";
-      form.reset();
+      msg.textContent = "The form is not connected yet. Email cascadedoulanl@gmail.com.";
       return;
     }
     try {

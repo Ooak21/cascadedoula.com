@@ -16,7 +16,12 @@ export default defineSchema({
     about: v.optional(v.string()),
     lookingFor: v.array(v.string()),
     source: v.string(),
-  }).index("by_created", ["createdAt"]),
+    userAgent: v.optional(v.string()),
+    notified: v.optional(v.boolean()),
+    notifiedAt: v.optional(v.number()),
+  })
+    .index("by_created", ["createdAt"])
+    .index("by_email", ["email"]),
   cascade_email_log: defineTable({
     createdAt: v.number(),
     template: v.string(),
