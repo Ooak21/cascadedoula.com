@@ -15,7 +15,7 @@ Today: 2026-08-15. Squarespace **site** plan ends 2026-08-16. The **domain** sta
 
 ## Not ready (blocks a DNS flip)
 
-1. **GitHub repo + Pages.** Create `Ooak21/cascadedoula.com`, push `main`, turn on Pages from root. Until that exists there is nothing to point the domain at.
+1. **GitHub repo + Pages.** Done. https://github.com/Ooak21/cascadedoula.com Pages from `main` / root. `CNAME` is `www.cascadedoula.com`. Do not flip DNS yet. Do not QA on `ooak21.github.io/cascadedoula.com` (root-relative assets break there). Preview stays http://127.0.0.1:8022/
 2. **Convex project.** Already exists on team IBS. Do not make another.
    - Dashboard: https://dashboard.convex.dev/t/IBS/cascade-doula
    - Prod: `zany-cassowary-596` → https://zany-cassowary-596.convex.site/intake
@@ -32,9 +32,10 @@ Today: 2026-08-15. Squarespace **site** plan ends 2026-08-16. The **domain** sta
 When Pages is green and Convex answers `/intake`:
 
 - Keep NS at Squarespace Domains / Google Cloud
-- Change **A** and **www CNAME** only, to GitHub Pages
+- Change **A** to GitHub Pages: `185.199.108.153` `185.199.109.153` `185.199.110.153` `185.199.111.153`
+- Change **www CNAME** to `ooak21.github.io`
 - Leave MX (Namecheap eforward) and the Google verification TXT
-- Add the Resend SPF + DKIM TXT records (sending only)
+- Leave the Resend DKIM / send-subdomain records alone (already in)
 
 Do not cancel the domain. Do not move MX to Resend unless we later want inbound at Resend.
 
@@ -47,8 +48,8 @@ Reply-To: `cascadedoulanl@gmail.com` on patient mail. Reply-To: the patient on N
 
 1. Resend domain verified. Sending is ready. Receiving stays off.
 2. **Now:** API keys → create a **send-only** key named `cascade-doula`. Do not reuse the restricted Silver Canyon key.
-3. `gh repo create Ooak21/cascadedoula.com --public --source=. --remote=origin --push`
-4. Enable GitHub Pages on `main` / root
+3. Repo exists: https://github.com/Ooak21/cascadedoula.com
+4. Pages is on (`main` / root). Custom domain waits for the DNS flip.
 5. Link this repo to the existing project (do not create): `npx convex dev --once --configure=existing --team IBS --project cascade-doula` then deploy to **prod** `zany-cassowary-596`. Merge first so we do not wipe `admin.js`.
 6. `config.js` already points at `https://zany-cassowary-596.convex.site`. Leave it.
 7. `npx convex env set --prod --deployment IBS:cascade-doula:prod RESEND_API_KEY ...` / `RESEND_FROM` / `DESK_EMAIL=cascadedoulanl@gmail.com`
