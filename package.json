@@ -1,0 +1,13 @@
+{
+  "name": "cascadedoula.com",
+  "private": true,
+  "description": "Cascade Doula Care public site + Convex intake (BAA).",
+  "scripts": {
+    "preview": "python3 -m http.server 8022",
+    "convex:dev": "convex dev",
+    "convex:once": "convex dev --once"
+  },
+  "devDependencies": {
+    "convex": "^1.16.0"
+  }
+}
