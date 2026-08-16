@@ -92,7 +92,7 @@ export const notify = internalAction({
     const desk = await ctx.runAction(internal.mailer.sendDeskAlert, mailArgs);
     await ctx.runMutation(internal.intake.logEmail, {
       template: "desk_alert",
-      to: process.env.DESK_EMAIL || "cascadedoulanl@gmail.com",
+      to: "cascadedoulanl@gmail.com",
       subject: `Someone reached out: ${lead.firstName} ${lead.lastName}`.trim(),
       resendId: desk.id,
       ok: !!desk.ok,

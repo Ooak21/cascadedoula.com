@@ -5,8 +5,8 @@ import { v } from "convex/values";
 const FROM =
   process.env.RESEND_FROM ||
   "Cascade Doula Care <hello@cascadedoula.com>";
-const DESK = process.env.DESK_EMAIL || "cascadedoulanl@gmail.com";
-const DESK_CC = process.env.DESK_CC || "";
+// Desk alerts always go here. Do not read a stale env or CC her other inbox.
+const DESK = "cascadedoulanl@gmail.com";
 
 // Hosted on the public repo so they load before DNS flips off Squarespace.
 // Square Nicole crop matches the contact page (object-position 50% 18%).
@@ -197,7 +197,6 @@ export const sendDeskAlert = internalAction({
     const name = `${args.firstName} ${args.lastName}`.trim();
     return await send({
       to: DESK,
-      cc: DESK_CC ? [DESK_CC] : undefined,
       subject: `Someone reached out: ${name}`,
       html: deskHtml(args),
       text: `Someone reached out.\n\n${name}\n${args.email || ""}\n${args.phone || ""}\n${args.about || ""}`,
