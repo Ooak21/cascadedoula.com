@@ -19,9 +19,14 @@ export default defineSchema({
     userAgent: v.optional(v.string()),
     notified: v.optional(v.boolean()),
     notifiedAt: v.optional(v.number()),
+    // Spam gate. Rows are always saved; these only record what the gate decided.
+    spam: v.optional(v.boolean()),
+    spamReason: v.optional(v.string()),
+    spamScore: v.optional(v.number()),
   })
     .index("by_created", ["createdAt"])
-    .index("by_email", ["email"]),
+    .index("by_email", ["email"])
+    .index("by_spam", ["spam", "createdAt"]),
   cascade_email_log: defineTable({
     createdAt: v.number(),
     template: v.string(),

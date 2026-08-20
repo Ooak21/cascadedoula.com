@@ -12,6 +12,7 @@ import type * as admin from "../admin.js";
 import type * as http from "../http.js";
 import type * as intake from "../intake.js";
 import type * as mailer from "../mailer.js";
+import type * as spam from "../spam.js";
 
 import type {
   ApiFromModules,
@@ -24,6 +25,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   intake: typeof intake;
   mailer: typeof mailer;
+  spam: typeof spam;
 }>;
 
 /**

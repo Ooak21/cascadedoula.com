@@ -78,6 +78,15 @@
       <p>I would love to hear from you. Tell me a little about you and your baby, and I will reach out soon. There is no wrong note to send.</p>
     </div>
     <form class="form-card on-page" id="intakeForm">
+      <!-- Spam trap. Off screen rather than display:none, because bots skip
+           hidden fields but do fill a field that looks like a URL. A real
+           person never sees it, so anything typed here is a script.
+           The name is deliberately not "website": browser autofill recognises
+           that one and would fill it for a real mama, locking her out. -->
+      <div class="hp-trap" aria-hidden="true">
+        <label for="website2">Website</label>
+        <input id="website2" name="website2" type="text" tabindex="-1" autocomplete="off">
+      </div>
       <div class="row">
         <div><label for="firstName">First name</label><input id="firstName" name="firstName" required></div>
         <div><label for="lastName">Last name</label><input id="lastName" name="lastName"></div>

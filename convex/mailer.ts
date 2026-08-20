@@ -192,12 +192,13 @@ export const sendPatientThanks = internalAction({
 });
 
 export const sendDeskAlert = internalAction({
-  args: leadFields,
+  args: { ...leadFields, suspected: v.optional(v.boolean()) },
   handler: async (_ctx, args) => {
     const name = `${args.firstName} ${args.lastName}`.trim();
+    const flag = args.suspected ? "[likely spam] " : "";
     return await send({
       to: DESK,
-      subject: `Someone reached out: ${name}`,
+      subject: `${flag}Someone reached out: ${name}`,
       html: deskHtml(args),
       text: `Someone reached out.\n\n${name}\n${args.email || ""}\n${args.phone || ""}\n${args.about || ""}`,
       replyTo: args.email || DESK,

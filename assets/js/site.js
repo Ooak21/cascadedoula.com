@@ -25,6 +25,9 @@
   const form = document.getElementById("intakeForm");
   if (!form) return;
   const msg = document.getElementById("formMsg");
+  // How long the form was on screen before it was sent. A person filling six
+  // fields and a paragraph cannot beat three seconds. A script always does.
+  const openedAt = Date.now();
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     msg.textContent = "";
@@ -45,6 +48,8 @@
       about: String(fd.get("about") || "").trim(),
       lookingFor: looking,
       source: "website",
+      hp: String(fd.get("website2") || ""),
+      elapsedMs: Date.now() - openedAt,
       first_name: firstName,
       last_name: lastName,
       edd: String(fd.get("dueDate") || "").trim(),

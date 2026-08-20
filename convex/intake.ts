@@ -41,6 +41,9 @@ export const create = internalMutation({
     message: v.optional(v.string()),
     source: v.optional(v.string()),
     user_agent: v.optional(v.string()),
+    spam: v.optional(v.boolean()),
+    spam_reason: v.optional(v.string()),
+    spam_score: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert("cascade_leads", {
@@ -57,6 +60,9 @@ export const create = internalMutation({
       source: args.source || "website",
       userAgent: args.user_agent,
       notified: false,
+      spam: args.spam ?? false,
+      spamReason: args.spam_reason,
+      spamScore: args.spam_score,
     });
   },
 });
@@ -74,8 +80,8 @@ export const markNotified = internalMutation({
 });
 
 export const notify = internalAction({
-  args: { leadId: v.id("cascade_leads") },
-  handler: async (ctx, { leadId }) => {
+  args: { leadId: v.id("cascade_leads"), suspected: v.optional(v.boolean()) },
+  handler: async (ctx, { leadId, suspected }) => {
     const lead = await ctx.runQuery(internal.intake.getForNotify, { leadId });
     if (!lead) return { ok: false, detail: "lead not found" };
     const mailArgs = {
@@ -89,16 +95,22 @@ export const notify = internalAction({
       about: lead.about,
       lookingFor: lead.lookingFor,
     };
-    const desk = await ctx.runAction(internal.mailer.sendDeskAlert, mailArgs);
+    const desk = await ctx.runAction(internal.mailer.sendDeskAlert, {
+      ...mailArgs,
+      suspected: suspected || false,
+    });
+    const deskSubject = `${suspected ? "[likely spam] " : ""}Someone reached out: ${lead.firstName} ${lead.lastName}`.trim();
     await ctx.runMutation(internal.intake.logEmail, {
-      template: "desk_alert",
+      template: suspected ? "desk_alert_suspected" : "desk_alert",
       to: "cascadedoulanl@gmail.com",
-      subject: `Someone reached out: ${lead.firstName} ${lead.lastName}`.trim(),
+      subject: deskSubject,
       resendId: desk.id,
       ok: !!desk.ok,
       detail: desk.detail,
     });
-    if (lead.email) {
+    // Never auto-reply to a suspected address. That is what was answering
+    // harvested inboxes from hello@cascadedoula.com.
+    if (lead.email && !suspected) {
       const thanks = await ctx.runAction(internal.mailer.sendPatientThanks, mailArgs);
       await ctx.runMutation(internal.intake.logEmail, {
         template: "patient_thanks",

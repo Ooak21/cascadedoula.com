@@ -437,3 +437,13 @@ body.hero-page .site-head {
   .hero-copy { font-size: 23px; }
   .photo-hero h1 { font-size: 36px; }
 }
+
+/* Spam trap on the contact form. Off screen, never display:none, because bots
+   skip hidden inputs but happily fill a field that looks like a URL. */
+.hp-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
